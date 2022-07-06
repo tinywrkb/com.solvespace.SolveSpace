@@ -243,22 +243,18 @@
             ],
             "sources": [
                 {
-                    "type": "archive",
-                    "url": "https://github.com/solvespace/solvespace/releases/download/v3.1/solvespace-3.1.tar.xz",
-                    "sha256": "34a273ce642d0c77b8f101463730ed4eade7d90cfabfe486f3e7cbf494ff132a",
+                    "type": "git",
+                    "url": "https://github.com/solvespace/solvespace.git",
+                    "commit": "b5333608e9d4826fcb6dc497a9e94e162267a84c",
+                    "disable-shallow-clone": true,
                     "x-checker-data": {
                         "is-main-source": true,
                         "type": "json",
-                        "url": "https://api.github.com/repos/solvespace/solvespace/releases/latest",
-                        "version-query": ".tag_name | sub(\"^v\"; \"\")",
-                        "url-query": ".assets[] | select(.name==\"solvespace-\" + $version + \".tar.xz\") | .browser_download_url"
+                        "url": "https://api.github.com/repos/solvespace/solvespace/commits?sha=master&per_page=1",
+                        "commit-query": ".[].sha",
+                        "version-query": ".[].sha[0:8]",
+                        "timestamp-query": ".[].commit.committer.date"
                     }
-                },
-                {
-                    "type": "shell",
-                    "commands": [
-                        "sed -e 's/^\\(include(GetGitCommitHash)\\)/#\\1/' -e 's/^# \\(set(GIT_COMMIT_HASH\\).*/\\1 flatpak)/' -i CMakeLists.txt"
-                    ]
                 }
             ],
             "cleanup": [
